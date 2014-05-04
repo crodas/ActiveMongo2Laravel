@@ -1,0 +1,20 @@
+{
+    "name": "crodas/active-mongo2-laravel",
+    "description": "ActiveMongo2 for Laravel4",
+    "require": {
+        "crodas/activemongo2": "*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "César D. Rodas",
+            "email": "crodas@php.net"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+            "crodas": "lib/"
+        }
+    }
+}
