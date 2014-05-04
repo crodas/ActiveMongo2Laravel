@@ -35,18 +35,36 @@
   +---------------------------------------------------------------------------------+
 */
 
-use ActiveMongo2\Configuration;
-use ActiveMongo2\Connection;
-use MongoClient;
+namespace crodas\ActiveMongo2;
 
-class ServiceProvider extends Illuminate\Support\ServiceProvider
+use ActiveMongo2\Configuration;
+use ActiveMongo2\Connection as AMongoConnection;
+use Illuminate\Database\Connection as LConnection;
+use MongoClient;
+use Illuminate\Support;
+
+/**
+ *  Wrap ActiveMongo service so it can be used
+ *  in a laravel way.
+ */
+class Connection extends LConnection
+{
+    protected $instance;
+
+    public function __construct (AMongoConnection $mong)
+    {   
+        $this->instance =  $mong;
+    }
+}
+
+class ServiceProvider extends Support\ServiceProvider
 {
     public function register()
     {
         $app = $this->app;
         $app['db']->extend('activemongo', function($config) use ($app) {
-            $murl = "mysql://";
-            $port = (array)empty($config['port']) ? 27017 : $config['port'];
+            $murl = "mongodb://";
+            $port = (array)(empty($config['port']) ? 27017 : $config['port']);
             foreach ((array)$config['host'] as $id => $host) {
                 $murl .= "{$host}:{$port[$id]}";
             }
@@ -54,13 +72,19 @@ class ServiceProvider extends Illuminate\Support\ServiceProvider
             $tempMapper    = $app['config']['cache.path'] . "/activemongo2." . sha1($murl) . ".php";
             $connection    = new MongoClient($murl);
             $configuration = new Configuration($tempMapper);
-            $configuration->addModelPath( $app['config']['model.path'] );
+            $configuration->addModelPath(app_path() . "/models");
 
             if (empty($app['config']['debug'])) {
                 $configuration->development();
             }
+
             
-            return new Connection($configuration, $connection, $config['database']);
+            /**
+             *  Wrap ActiveMongo\Connection so laravel can understand it
+             */
+            return new Connection(
+                new AMongoConnection($configuration, $connection, $config['database'])
+            );
         });
     }
 }
