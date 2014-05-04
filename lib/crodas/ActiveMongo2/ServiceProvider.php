@@ -39,23 +39,8 @@ namespace crodas\ActiveMongo2;
 
 use ActiveMongo2\Configuration;
 use ActiveMongo2\Connection as AMongoConnection;
-use Illuminate\Database\Connection as LConnection;
 use MongoClient;
 use Illuminate\Support;
-
-/**
- *  Wrap ActiveMongo service so it can be used
- *  in a laravel way.
- */
-class Connection extends LConnection
-{
-    protected $instance;
-
-    public function __construct (AMongoConnection $mong)
-    {   
-        $this->instance =  $mong;
-    }
-}
 
 class ServiceProvider extends Support\ServiceProvider
 {
