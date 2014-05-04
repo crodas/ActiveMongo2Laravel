@@ -2,7 +2,7 @@
     "name": "crodas/activemongo2-laravel",
     "description": "ActiveMongo2 for Laravel4",
     "require": {
-        "crodas/activemongo2": "dev-develop"
+        "crodas/activemongo2": ">=0.1.9"
     },
     "license": "MIT",
     "authors": [
