@@ -36,8 +36,16 @@
 */
 namespace crodas\ActiveMongo2;
 
+use DB;
+
 Trait Model
 {
+    public static function all()
+    {
+        return DB::connection('activemongo')
+            ->collection(get_called_class())->find();
+    }
+
     public static function where($name, $value)
     {
         return DB::connection('activemongo')

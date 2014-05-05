@@ -54,7 +54,7 @@ class Connection extends LConnection
 
     public function collection($name)
     {
-        return $this->instance->getCollection($name)->query();
+        return $this->instance->getCollection($name);
     }
 
 
