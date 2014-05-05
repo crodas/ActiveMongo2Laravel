@@ -54,7 +54,7 @@ class ServiceProvider extends Support\ServiceProvider
                 $murl .= "{$host}:{$port[$id]}";
             }
 
-            $tempMapper    = $app['config']['cache.path'] . "/activemongo2." . sha1($murl) . ".php";
+            $tempMapper    = $app['config']['cache.path'] . "/activemongo2.mapper.php";
             $connection    = new MongoClient($murl);
             $configuration = new Configuration($tempMapper);
             $configuration->addModelPath(app_path() . "/models");
