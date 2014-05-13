@@ -53,6 +53,12 @@ Trait Model
             ->field($name)->eq($value);
     }
 
+    public static function newQuery()
+    {
+        return DB::connection('activemongo')
+            ->table(get_called_class());
+    }
+
     public function delete()
     {
         DB::connection('activemongo')->delete($this);
