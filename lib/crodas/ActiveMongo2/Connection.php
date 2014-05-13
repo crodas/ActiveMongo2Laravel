@@ -63,6 +63,21 @@ class Connection extends LConnection
         return $this->instance->getCollection($name)->query();
     }
 
+    public function delete($object)
+    {
+        return $this->instance->delete($object);
+    }
+
+    public function save($object)
+    {
+        return $this->instance->save($object);
+    }
+
+    public function getConnection()
+    {
+        return $this->instance;
+    }
+
     public function getDriverName()
     {
         return "activemongo";

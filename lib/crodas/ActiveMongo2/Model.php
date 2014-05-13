@@ -52,4 +52,17 @@ Trait Model
             ->table(get_called_class())
             ->field($name)->eq($value);
     }
+
+    public function delete()
+    {
+        DB::connection('activemongo')->delete($this);
+        return true;
+    }
+
+    public function save()
+    {
+        DB::connection('activemongo')->save($this);
+        return true;
+    }
+
 }
