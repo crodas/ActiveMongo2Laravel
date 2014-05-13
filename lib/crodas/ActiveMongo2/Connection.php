@@ -63,7 +63,7 @@ class Connection extends LConnection
         return $this->instance->getCollection($name)->query();
     }
 
-    public function delete($object)
+    public function delete($object, $bindings = Array())
     {
         return $this->instance->delete($object);
     }
